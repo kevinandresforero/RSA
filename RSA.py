@@ -1,6 +1,5 @@
-
 class rca:
-    tex = ("Gonorrea Ome Gonorrea")
+    tex = ("tu y yo <3")
     _p = 23
     _q = 31
     _n = 29
@@ -12,11 +11,12 @@ class rca:
 
     while((_n*_Cp)%_fi != 1):
         _Cp = _Cp + 1
-    print(_Cp)
-    print(_z)
+    print(" Cp = "+str(_Cp))
+    print(" z = "+str(_z))
     _lTex = tex
 
     for i in range (len(_lTex)):
-        ord(_lTex[i])
+        print("   "+str(_lTex[i])+"   =   "+str((ord(_lTex[i]) ** _n) % _z))
+
 
 
