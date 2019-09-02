@@ -1,3 +1,3 @@
 # RSA
 
-  Encriptacion por consola
+  Falta terminar La conexión entre la interfaz y el programa
