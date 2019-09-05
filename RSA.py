@@ -1,93 +1,107 @@
-import  tkinter as tk
+import tkinter as tk
 from tkinter import Canvas
 
-def es_primo(numero_leido):
+marco = tk.Tk()
+marco.title("Encriptar con RSA")
+marco.geometry("1000x500")
 
-    verificar= False
-    numero = int(numero_leido)
-    contador = 0
-    verificar= False
-    for i in range(1,numero+1):
-        if (numero% i)==0:
-           contador = contador + 1
-        if contador >= 3:
-            verificar=True
-            break
+def primo(num):
+    for i in range(2,num):
+        if  num<23 or num%i == 0:
+            return False
+    return True
+fi = 0
+z = 0
+s = 0
+Desen = []
 
-    if contador==2 or verificar==False:
-        print ("El numero es primo")
-        primo = True
-        return primo
-
+def Acc():
+    Encript = []
+    primP = False
+    primQ = False
+    primN = False
+    p = int(entrada1.get())
+    n = int(entrada3.get())
+    q = int(entrada2.get())
+    palabra = str(entrada4.get())
+    if not primo(p):
+        mostrar1.set("Este número no es primo a mayor a 23")
     else:
-        print ("El numero no es primo")
-        primo = False
-        return primo
+        mostrar1.set("")
+        primP = True
+    if not primo(q):
+        mostrar2.set("Este número no es primo a mayor a 23")
+    else:
+        mostrar2.set("")
+        primQ = True
+    if not primo(n):
+        mostrar3.set("Este número no es primo a mayor a 23")
+    else:
+        mostrar3.set("")
+        primN = True
+    if primP and primQ and primN:
+        fi = (p-1)*(q-1)
+        z = (p*q)
+        s = n+1
+        while True:
+            if (n*s)%fi==1:
+                break
+            s = s+1
+        mostrar6.set(s)
+        mostrar7.set(z)
+        for i in palabra:
+            a = (int(ord(i))**n)%z
+            Encript.append(a)
+        mostrar4.set(Encript)
+def Acc2():
+    '''for i in range(len(Desen)):
+        b = (int(Desen[i])**(int(mostrar6.get())))%(int(mostrar7.get()))
+        Desen[i] = chr(b)
+    mostrar5.set(Desen)
+    del Desen[:]'''
+    palabra = str(entrada4.get())
+    for i in palabra:
+        Desen.append(i)
+    mostrar5.set(Desen)
+    del Desen[:]
 
-class rca:
+mostrar1 = tk.StringVar()
+mostrar2 = tk.StringVar()
+mostrar3 = tk.StringVar()
+mostrar4 = tk.StringVar()
+mostrar5 = tk.StringVar()
+mostrar6 = tk.StringVar()
+mostrar7 = tk.StringVar()
 
-    marco = tk.Tk()
-    marco.title('Encriptación en SRA')
-    marco.configure(background='#000000')
-    marco.geometry('550x300')
-    marco.resizable(False,False)
+l1 = tk.Label(marco, text ="A continución digíte los 3 primos").grid(row=0)
+l2 = tk.Label(marco, text ="p = ", fg="red").grid(row=1,sticky=tk.W)
+entrada1 = tk.Entry(marco)
+entrada1.grid(row=1,column=0)
+l3= tk.Label(marco, text ="q = ").grid(row=2,sticky=tk.W)
+entrada2= tk.Entry(marco)
+entrada2.grid(row=2,column=0)
+l4 = tk.Label(marco, text ="n = ").grid(row=3,sticky=tk.W)
+entrada3 = tk.Entry(marco)
+entrada3.grid(row=3,column=0)
+l5 = tk.Label(marco, textvariable = mostrar1).grid(row=1,column=1)
+l6 = tk.Label(marco, textvariable = mostrar2).grid(row=2,column=1)
+l7 = tk.Label(marco, textvariable = mostrar3).grid(row=3,column=1)
+l8 = tk.Label(marco, text ="Palabra a encriptar").grid(row=4,sticky=tk.W)
+entrada4 = tk.Entry(marco)
+entrada4.grid(row=5,column=0)
+l9 = tk.Label(marco, text ="Palabra Encriptada").grid(row=6,sticky=tk.W)
+l10 = tk.Label(marco, textvariable = mostrar4).grid(row=7,sticky=tk.W)
 
+l11 = tk.Label(marco, text ="Palabra Desencriptada").grid(row=8,sticky=tk.W)
+l12 = tk.Label(marco, textvariable = mostrar5).grid(row=9,sticky=tk.W)
 
-    lTitle = tk.Label(marco, text="Complete los Siguientes Campos", fg="yellow" ,bg ="black").grid(row=0,column=0)
-    lText = tk.Label(marco, text="El Texto a Codificar", fg="yellow" ,bg ="black").grid(row=1,column=1)
-    lp = tk.Label(marco, text="El Primer Número Primo", fg="yellow" ,bg ="black").grid(row=3,column=1)
-    lq = tk.Label(marco, text="El Segundo Número Primo", fg="blue" ,bg ="black").grid(row=4,column=1)
-    ln = tk.Label(marco, text="El Tercer Número Primo", fg="red" ,bg ="black").grid(row=5,column=1)
+l13 = tk.Label(marco, text ="s = ").grid(row=10,sticky=tk.W)
+l14 = tk.Label(marco, textvariable = mostrar6).grid(row=10)
 
-    cText = tk.Entry(marco).grid(row=1,column=2)
-    cP = tk.Entry(marco).grid(row=3,column=2)
-    cQ = tk.Entry(marco).grid(row=4,column=2)
-    cN = tk.Entry(marco).grid(row=5,column=2)
+l15 = tk.Label(marco, text ="z = ").grid(row=11,sticky=tk.W)
+l16 = tk.Label(marco, textvariable = mostrar7).grid(row=11)
 
-    codificar = tk.Button(marco, text = "Codificar" , bg = "black" , fg = "blue").grid(row=4,column=0)
+tk.Button(marco, text="Encriptar",command=Acc).grid(row=13,sticky=tk.W)
+tk.Button(marco, text="Desencriptar",command=Acc2).grid(row=13)
 
-    marco.mainloop()
-
-    print(str(cP)+" "+str(cQ)+" "+str(cN))
-
-    primo = False
-
-    while(primo == False):
-        aux = 0
-        _p = int(cP.get())
-        print(cP)
-        if(es_primo(_p) == True):
-            aux = aux + 1
-        _q = int(cQ.get())
-        if(es_primo(_q) == True):
-            aux = aux + 1
-        _n = int(cN.get())
-        if(es_primo(_p) == True):
-            aux = aux +1
-        if(aux >= 3):
-            primo = True
-
-    _fi = (_p-1)*(_q-1)
-    _z = _p * _q
-    _Cp = _n+1
-
-
-    marco.mainloop()
-
-    #Generando la clave publica
-
-
-    while((_n*_Cp)%_fi != 1):
-        _Cp = _Cp + 1
-
-    _lTex = cText.get()
-    encript = []
-    dencript = []
-
-    print(" Cp = "+str(_Cp))
-    print(" z = "+str(_z))
-
-    for i in range (len(_lTex)):
-        encript.append(((ord(_lTex[i])) ** _n) % (_z))
-        dencript.append((encript[i]**_Cp) % _z)
-        print(str(ord(_lTex[i]))+"  :   "+str(encript[i])+" :   "+str((dencript[i])))
+marco.mainloop()
